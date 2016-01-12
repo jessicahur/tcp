@@ -2,6 +2,7 @@ var net = require('net');
 var fs = require('fs');
 
 function runServer(callback){
+  var clients = [];
   var server = net.createServer(function (duplexStream) {
     console.log('client connected');
 
@@ -10,9 +11,14 @@ function runServer(callback){
     });
 
     duplexStream.on('data', function(data) {
-      var uniqueId = Date.now().toString()+'.txt';
+      var uniqueId = '../'+Date.now().toString()+'.txt';
+      console.log(typeof uniqueId);
+
       var dataBody = data.toString();
-      fs.writeFile('../'+uniqueId, dataBody, callback);
+
+      fs.writeFile(uniqueId, dataBody, function(err){
+        callback(err, uniqueId);
+      });
     });
   });
 
@@ -21,4 +27,5 @@ function runServer(callback){
   });
 }
 
-runServer();
+module.exports = runServer;
+
