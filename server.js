@@ -17,7 +17,7 @@ function runServer(callback){
       var dataBody = data.toString();
 
       fs.writeFile(uniqueId, dataBody, function(err){
-        callback(err, uniqueId);
+        callback(err, uniqueId); //need the anonymous function because if I do callback.call(null, uniqueID), callback does not return anything, thus undefine is passed as a callback of the write function
       });
     });
   });
