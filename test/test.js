@@ -11,7 +11,6 @@ describe('SIMPLE TCP', function(){
 
     runServer(function(err, uniqueId) {
       if(err) return done(err);
-      console.log('UNIQUE ID', uniqueId);
       fs.readFile(uniqueId, function(err, data) {
         console.log(data);
         var fileBody = data.toString();
